@@ -23,7 +23,7 @@
 }
 
 .dropdown .navList {
-  background-color: lightblue;
+  background-color: white;
   flex-direction: column;
   align-items: flex-end;
   padding: 1rem;
@@ -32,12 +32,23 @@
 
 .navListItem {
   padding: 0.25rem 0;
+  position: relative;
 }
 
-.navListItem:hover,
-.navListItem:active,
-.navListItem.active {
-  border-bottom: 1px solid lightblue;
+.navListItem:hover::after,
+.navListItem.active::after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background-color: lightblue;
+}
+
+.navListItem.active::after {
+  height: 3px;
+  bottom: -2px;
 }
 
 .showHideNav {
