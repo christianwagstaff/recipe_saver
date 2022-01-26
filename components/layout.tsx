@@ -1,9 +1,10 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import React from 'react'
+import Nav from './nav'
+import Header from './header'
 
 const name = 'Recipe Saver'
 export const siteTitle = 'Recipe Saver'
@@ -26,10 +27,8 @@ export default function Layout({
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={styles.header}>
-        <h1 className={utilStyles.heading2Xl}>{name}</h1>
-      </header>
-      <main>{children}</main>
+      <Header name={name} />
+      <main className={styles.main}>{children}</main>
       {!home && (
         <div className={styles.backToHome}>
           <Link href="/">

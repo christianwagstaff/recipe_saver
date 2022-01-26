@@ -1,0 +1,46 @@
+.navList {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  list-style-type: none;
+  gap: 1rem;
+}
+
+.nav {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  display: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown .navList {
+  background-color: lightblue;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 1rem;
+  justify-content: flex-start;
+}
+
+.navListItem {
+  padding: 0.25rem 0;
+}
+
+.navListItem:hover,
+.navListItem:active,
+.navListItem.active {
+  border-bottom: 1px solid lightblue;
+}
+
+.showHideNav {
+  background-color: inherit;
+  border: none;
+}
