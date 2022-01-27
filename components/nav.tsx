@@ -10,57 +10,30 @@ import NavLink from './NavLink'
 export default function Nav() {
   const router = useRouter()
   const [toggleMenu, setToggleMenu] = useState(false)
-  const isMobile = useWidowWidth(600)
 
   // TODO - BUG - nav flashes false for a fraction of a second
   return (
     <nav className={styles.nav}>
-      {isMobile && (
-        <button
-          className={styles.showHideNav}
-          onClick={() => {
-            setToggleMenu(!toggleMenu)
-          }}
-        >
-          {toggleMenu ? (
-            <Image src={Close} height={30} width={30} />
-          ) : (
-            <Image src={Menu} height={30} width={30} />
-          )}
-        </button>
-      )}
-      {isMobile && toggleMenu && (
+      <ul className={`${styles.navList} ${toggleMenu ? styles.mobile : ''}`}>
+        <li className={styles.mobileNav}>
+          <button
+            className={styles.showHideNav}
+            onClick={() => {
+              setToggleMenu(!toggleMenu)
+            }}
+          >
+            {toggleMenu ? (
+              <Image src={Close} height={30} width={30} />
+            ) : (
+              <Image src={Menu} height={30} width={30} />
+            )}
+          </button>
+        </li>
         <div className={styles.dropdown}>
-          <ul className={styles.navList}>
-            <li>
-              <button
-                className={styles.showHideNav}
-                onClick={() => {
-                  setToggleMenu(!toggleMenu)
-                }}
-              >
-                {toggleMenu ? (
-                  <Image src={Close} height={30} width={30} />
-                ) : (
-                  <Image src={Menu} height={30} width={30} />
-                )}
-              </button>
-            </li>
-            <NavLink url="/" name="Home" router={router} />
-            <NavLink
-              url="/recipes/new"
-              name="Create Recipie"
-              router={router}
-            />
-          </ul>
-        </div>
-      )}
-      {!isMobile && (
-        <ul className={styles.navList}>
           <NavLink url="/" name="Home" router={router} />
           <NavLink url="/recipes/new" name="Create Recipie" router={router} />
-        </ul>
-      )}
+        </div>
+      </ul>
     </nav>
   )
 }
