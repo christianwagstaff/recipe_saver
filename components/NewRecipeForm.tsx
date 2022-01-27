@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react'
+import useFormArray from '../hooks/useFormArray'
 // import { submitNewRecipe } from '../lib/recipies'
-import FormInput from './FormInput'
 import styles from './NewRecipeForm.module.css'
 
 interface Ingredient {
@@ -15,127 +15,75 @@ interface Ingredient {
   }
 }
 
+const newIngredient = {
+  name: '',
+  amount: '',
+  unit: '',
+
+  errors: {
+    name: null,
+    amount: null,
+    unit: null,
+  },
+}
+
 const NewRecipeForm = () => {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([])
+  const [
+    ingredients,
+    handleAddIngredient,
+    handleIngredientChange,
+    handleRemoveIngredient,
+  ] = useFormArray({ itemTemplate: newIngredient })
   const saveNewRecipe = (e: FormEvent) => {
     e.preventDefault() // Don't redirect page on submit
-  }
-  const handleRemoveIngredient = (e: FormEvent, index: number) => {
-    e.preventDefault()
-    setIngredients((prev) => prev.filter((item) => item !== prev[index]))
-  }
-  const prevIsValid = () => {
-    if (ingredients.length === 0) {
-      return true
-    }
-    const someEmpty = ingredients.some(
-      (i) => i.amount === '' || i.name === '' || i.unit === ''
-    )
-
-    if (someEmpty) {
-      ingredients.map((item, index) => {
-        const allPrev = [...ingredients]
-
-        if (ingredients[index].name === '') {
-          allPrev[index].errors.name = 'Name is Required'
-        }
-        if (ingredients[index].unit === '') {
-          allPrev[index].errors.unit = 'Unit is Required'
-        }
-        if (ingredients[index].amount === '') {
-          allPrev[index].errors.amount = 'Amount is Required'
-        }
-
-        setIngredients(allPrev)
-      })
-    }
-
-    return !someEmpty
-  }
-  const handleAddIngredient = (e: FormEvent) => {
-    e.preventDefault()
-    const newIngredientState = {
-      name: '',
-      amount: '',
-      unit: '',
-
-      errors: {
-        name: null,
-        amount: null,
-        unit: null,
-      },
-    }
-    if (prevIsValid()) {
-      setIngredients([...ingredients, newIngredientState])
-    }
-  }
-  const handleIngredientChange = (e: any, index: number) => {
-    e.preventDefault()
-    setIngredients((prev) => {
-      return prev.map((item, i) => {
-        if (i !== index) {
-          return item
-        } else {
-          return {
-            ...item,
-            [e.target.name]: e.target.value,
-
-            // Clear Errors when user inputs
-            errors: {
-              ...item.errors,
-              [e.target.name]:
-                e.target.value.length > 0
-                  ? null
-                  : `${e.target.name} is required`,
-            },
-          }
-        }
-      })
-    })
   }
 
   return (
     <form onSubmit={saveNewRecipe} className={styles.form}>
-      <FormInput
-        id="name"
-        type="text"
-        label="Recipe Name"
-        autoComplete="off"
-        require={true}
-        className={styles.input}
-        placeholder="Recipe Name"
-      />
+      <label htmlFor="name" className={styles.input}>
+        Recipe Name
+        <input
+          id="name"
+          name="name"
+          type="text"
+          required
+          placeholder="Recipe Name"
+        />
+      </label>
       <div className={styles.times}>
-        <FormInput
-          id="prepTime"
-          type="number"
-          label="Prep Time"
-          autoComplete="off"
-          require={true}
-          className={styles.input}
-          placeholder="Minutes"
-          min={0}
-        />
-        <FormInput
-          id="cookTime"
-          type="number"
-          label="Cook Time"
-          autoComplete="off"
-          require={true}
-          className={styles.input}
-          placeholder="Minutes"
-          min={0}
-        />
-        <FormInput
-          id="totalTime"
-          type="number"
-          label="Total Time"
-          autoComplete="off"
-          require={true}
-          className={styles.input}
-          placeholder="Minutes"
-          min={0}
-        />
+        <label htmlFor="prepTime" className={styles.input}>
+          Prep Time
+          <input
+            id="prepTime"
+            name="prepTime"
+            type="number"
+            required
+            placeholder="Minutes"
+            min={0}
+          />
+        </label>
+        <label htmlFor="cookTIme" className={styles.input}>
+          Cook Time
+          <input
+            id="cookTime"
+            name="cookTime"
+            type="number"
+            required
+            placeholder="Minutes"
+            min={0}
+          />
+        </label>
+        <label htmlFor="totalTime" className={styles.input}>
+          Total Time
+          <input
+            id="totalTime"
+            name="totalTime"
+            type="number"
+            required
+            placeholder="Minutes"
+            min={0}
+          />
+        </label>
       </div>
       <label htmlFor="ingredient-list" className={styles.ingredientList}>
         Ingredients

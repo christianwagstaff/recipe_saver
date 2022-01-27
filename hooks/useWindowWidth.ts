@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 function useWidowWidth(width: number) {
   // Initilize state with undefined
   console.log(width)
-  const [isMobile, setIsMobile] = useState(width < 600 ? true : false)
+  const [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
     // Set is Mobile on initial render
     // Use event listeners to future resizing of screen
