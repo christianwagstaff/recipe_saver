@@ -3,18 +3,6 @@ import useFormArray from '../hooks/useFormArray'
 // import { submitNewRecipe } from '../lib/recipies'
 import styles from './NewRecipeForm.module.css'
 
-interface Ingredient {
-  name: string
-  amount: number | string
-  unit: string
-
-  errors: {
-    name: null | string
-    amount: null | string
-    unit: null | string
-  }
-}
-
 const newIngredient = {
   name: '',
   amount: '',
@@ -27,6 +15,11 @@ const newIngredient = {
   },
 }
 
+const newStep = {
+  name: '',
+  errors: { name: null },
+}
+
 const NewRecipeForm = () => {
   const [
     ingredients,
@@ -34,6 +27,9 @@ const NewRecipeForm = () => {
     handleIngredientChange,
     handleRemoveIngredient,
   ] = useFormArray({ itemTemplate: newIngredient })
+  const [steps, handleAddStep, handleStepChange, handleRemoveStep] =
+    useFormArray({ itemTemplate: newStep })
+
   const saveNewRecipe = (e: FormEvent) => {
     e.preventDefault() // Don't redirect page on submit
   }
@@ -89,7 +85,7 @@ const NewRecipeForm = () => {
         Ingredients
         {ingredients.map((ingredient, index) => {
           return (
-            <div className={styles.ingredient}>
+            <div className={styles.ingredient} key={index}>
               <div className={styles.col}>
                 <input
                   type="number"
@@ -157,6 +153,45 @@ const NewRecipeForm = () => {
           )
         })}
         <button onClick={handleAddIngredient}>Add Ingredient</button>
+      </label>
+      <label htmlFor="step-list" className={styles.ingredientList}>
+        Steps
+        <ol className={styles.list}>
+          {steps.map((step, index) => {
+            return (
+              <li>
+                <label htmlFor={`step${index}`} className={styles.horizontal}>
+                  <div className={styles.input}>
+                    <textarea
+                      name="name"
+                      id={`step${index}`}
+                      className={
+                        step.errors.name
+                          ? `${styles.textarea} ${styles.error}`
+                          : styles.textarea
+                      }
+                      value={step.name}
+                      placeholder="Add New Step"
+                      onChange={(e) => handleStepChange(e, index)}
+                    />
+                    {step.errors.name && (
+                      <div className={styles.invalidInput}>
+                        Step is required
+                      </div>
+                    )}
+                  </div>
+                  <button
+                    onClick={(e) => handleRemoveStep(e, index)}
+                    className={styles.remove}
+                  >
+                    X
+                  </button>
+                </label>
+              </li>
+            )
+          })}
+        </ol>
+        <button onClick={handleAddStep}>Add Step</button>
       </label>
     </form>
   )

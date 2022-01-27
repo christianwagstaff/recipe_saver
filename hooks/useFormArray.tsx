@@ -6,7 +6,6 @@ interface Errors {
 
 interface ArrayObject {
   [key: string]: any
-  errors?: Errors
 }
 
 const useFormArray = ({ itemTemplate }: { itemTemplate: object }) => {
@@ -24,6 +23,7 @@ const useFormArray = ({ itemTemplate }: { itemTemplate: object }) => {
     }
     // Get last item to check value
     const lastItem = items[items.length - 1]
+    const previousItems = items.slice(0, items.length - 1)
 
     let someEmpty = false
 
@@ -33,23 +33,25 @@ const useFormArray = ({ itemTemplate }: { itemTemplate: object }) => {
         someEmpty = true
         // If user uses Errors then assign error handling
         if (lastItem.errors) {
-          if (lastItem.errors.key) {
-            console.log(lastItem)
-            lastItem.errors.key = `${key} is required`
+          if (typeof lastItem.errors[key] !== 'undefined') {
+            lastItem.errors[key] = true
           }
         }
       }
     }
-
+    setItems([...previousItems, lastItem])
     return !someEmpty
   }
 
   const handleAddItem = (e: FormEvent) => {
     e.preventDefault()
-    const newItemState = itemTemplate
+    // Clone the itemTemplate for new Item
+    const newItemState = JSON.parse(JSON.stringify(itemTemplate))
     if (prevIsValid()) {
       setItems([...items, newItemState])
     }
+    console.log('New')
+    console.log(newItemState)
   }
 
   const handleItemChange = (e: any, index: number) => {
@@ -66,15 +68,13 @@ const useFormArray = ({ itemTemplate }: { itemTemplate: object }) => {
             // Clear Errors when user inputs
             errors: {
               ...item.errors,
-              [e.target.name]:
-                e.target.value.length > 0
-                  ? null
-                  : `${e.target.name} is required`,
+              [e.target.name]: e.target.value.length > 0 ? null : true,
             },
           }
         }
       })
     )
+    console.log(items)
   }
   return [items, handleAddItem, handleItemChange, handleRemoveItem] as const
 }
