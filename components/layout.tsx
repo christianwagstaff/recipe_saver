@@ -11,10 +11,8 @@ export const siteTitle = 'Recipe Saver'
 
 export default function Layout({
   children,
-  home,
 }: {
   children: React.ReactNode
-  home?: boolean
 }) {
   return (
     <div className={styles.container}>
@@ -29,13 +27,6 @@ export default function Layout({
       </Head>
       <Header name={name} />
       <main className={styles.main}>{children}</main>
-      {!home && (
-        <div className={styles.backToHome}>
-          <Link href="/">
-            <a>← Back to home</a>
-          </Link>
-        </div>
-      )}
       <footer className={styles.footer}>
         <a
           href="https://github.com/christianwagstaff"

@@ -1,0 +1,60 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 80%;
+}
+
+.form > * {
+  width: 100%;
+  max-width: 100%;
+}
+
+.times {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.input {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.input.error {
+  border-color: red;
+}
+
+.invalidInput {
+  font-size: 0.7rem;
+  color: red;
+}
+
+.ingredientList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.ingredient {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto 3fr auto;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.remove {
+  background-color: rgb(255, 176, 176);
+  border-radius: 1px;
+  height: 1fr;
+  width: 1fr;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}

@@ -48,7 +48,7 @@ export default function Nav() {
             </li>
             <NavLink url="/" name="Home" router={router} />
             <NavLink
-              url="/recipies/new"
+              url="/recipes/new"
               name="Create Recipie"
               router={router}
             />
@@ -58,7 +58,7 @@ export default function Nav() {
       {!isMobile && (
         <ul className={styles.navList}>
           <NavLink url="/" name="Home" router={router} />
-          <NavLink url="/recipies/new" name="Create Recipie" router={router} />
+          <NavLink url="/recipes/new" name="Create Recipie" router={router} />
         </ul>
       )}
     </nav>
