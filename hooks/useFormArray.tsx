@@ -50,8 +50,6 @@ const useFormArray = ({ itemTemplate }: { itemTemplate: object }) => {
     if (prevIsValid()) {
       setItems([...items, newItemState])
     }
-    console.log('New')
-    console.log(newItemState)
   }
 
   const handleItemChange = (e: any, index: number) => {
@@ -74,7 +72,6 @@ const useFormArray = ({ itemTemplate }: { itemTemplate: object }) => {
         }
       })
     )
-    console.log(items)
   }
   return [items, handleAddItem, handleItemChange, handleRemoveItem] as const
 }

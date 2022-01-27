@@ -3,7 +3,7 @@ import { getLocalStorage, setLocalStorage } from '../hooks/useLocalStorage'
 interface Recipe {
   name: string
   ingredients: { name: string; amount: number; unit: string }[]
-  steps: string[]
+  steps: { name: string }[]
   createdDate: Date
   tags?: string[]
   category?: string[]
@@ -23,4 +23,8 @@ export function submitNewRecipe(recipe: Recipe) {
   } else {
     setLocalStorage('recipes', [recipe])
   }
+}
+
+export function getAllRecipies() {
+  return getLocalStorage('recipes')
 }

@@ -1,7 +1,21 @@
 import { FormEvent, useState } from 'react'
 import useFormArray from '../hooks/useFormArray'
-// import { submitNewRecipe } from '../lib/recipies'
+import { submitNewRecipe } from '../lib/recipes'
 import styles from './NewRecipeForm.module.css'
+
+interface RecipeObject {
+  name: string
+  ingredients: { name: string; amount: number; unit: string }[]
+  steps: { name: string }[]
+  createdDate: Date
+  tags?: string[]
+  category?: string[]
+  notes?: { note: string; date: Date }[]
+  prepTime?: number
+  cookTime?: number
+  totalTime?: number
+  rating?: 0 | 1 | 2 | 3 | 4 | 5
+}
 
 const newIngredient = {
   name: '',
@@ -29,9 +43,32 @@ const NewRecipeForm = () => {
   ] = useFormArray({ itemTemplate: newIngredient })
   const [steps, handleAddStep, handleStepChange, handleRemoveStep] =
     useFormArray({ itemTemplate: newStep })
+  const [name, setName] = useState('')
+  const [prepTime, setPrepTime] = useState('')
+  const [cookTime, setCookTime] = useState('')
+  const [totalTime, setTotalTime] = useState('')
 
   const saveNewRecipe = (e: FormEvent) => {
     e.preventDefault() // Don't redirect page on submit
+    let newRecipe: RecipeObject = {
+      name,
+      ingredients: ingredients.map((ing) => {
+        return {
+          name: ing.name,
+          amount: ing.amount,
+          unit: ing.unit,
+        }
+      }),
+      steps: steps.map((step) => {
+        return { name: step.name }
+      }),
+      createdDate: new Date(),
+      prepTime: Number(prepTime),
+      cookTime: Number(cookTime),
+      totalTime: Number(totalTime),
+    }
+    submitNewRecipe(newRecipe)
+    console.log('Recipe Saved')
   }
 
   return (
@@ -44,6 +81,10 @@ const NewRecipeForm = () => {
           type="text"
           required
           placeholder="Recipe Name"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value)
+          }}
         />
       </label>
       <div className={styles.times}>
@@ -53,8 +94,9 @@ const NewRecipeForm = () => {
             id="prepTime"
             name="prepTime"
             type="number"
-            required
             placeholder="Minutes"
+            value={prepTime}
+            onChange={(e) => setPrepTime(e.target.value)}
             min={0}
           />
         </label>
@@ -64,9 +106,10 @@ const NewRecipeForm = () => {
             id="cookTime"
             name="cookTime"
             type="number"
-            required
             placeholder="Minutes"
             min={0}
+            value={cookTime}
+            onChange={(e) => setCookTime(e.target.value)}
           />
         </label>
         <label htmlFor="totalTime" className={styles.input}>
@@ -75,9 +118,10 @@ const NewRecipeForm = () => {
             id="totalTime"
             name="totalTime"
             type="number"
-            required
             placeholder="Minutes"
             min={0}
+            value={totalTime}
+            onChange={(e) => setTotalTime(e.target.value)}
           />
         </label>
       </div>
@@ -159,7 +203,7 @@ const NewRecipeForm = () => {
         <ol className={styles.list}>
           {steps.map((step, index) => {
             return (
-              <li>
+              <li key={index}>
                 <label htmlFor={`step${index}`} className={styles.horizontal}>
                   <div className={styles.input}>
                     <textarea
@@ -193,6 +237,7 @@ const NewRecipeForm = () => {
         </ol>
         <button onClick={handleAddStep}>Add Step</button>
       </label>
+      <input type="submit" value="Save Recipe" />
     </form>
   )
 }
