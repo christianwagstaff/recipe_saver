@@ -11,7 +11,6 @@ export default function Nav() {
   const router = useRouter()
   const [toggleMenu, setToggleMenu] = useState(false)
 
-  // TODO - BUG - nav flashes false for a fraction of a second
   return (
     <nav className={styles.nav}>
       <ul className={`${styles.navList} ${toggleMenu ? styles.mobile : ''}`}>

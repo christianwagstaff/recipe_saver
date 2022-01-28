@@ -47,3 +47,7 @@
   .lightText {
     color: #666;
   }
+
+  .width100 {
+    width: 100%;
+  }
