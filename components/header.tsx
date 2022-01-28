@@ -5,7 +5,7 @@ import styles from './header.module.css'
 export default function Header({ name }: { name: string }) {
   return (
     <header className={styles.header}>
-      <h1 className={utilStyles.heading2Xl}>{name}</h1>
+      <div className={utilStyles.heading2Xl}>{name}</div>
       <Nav />
     </header>
   )
