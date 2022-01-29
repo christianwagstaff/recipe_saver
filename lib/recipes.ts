@@ -1,6 +1,7 @@
 import { getLocalStorage, setLocalStorage } from '../hooks/useLocalStorage'
 
 interface Recipe {
+  id: string
   name: string
   ingredients: { name: string; amount: number; unit: string }[]
   steps: { name: string }[]
@@ -26,5 +27,29 @@ export function submitNewRecipe(recipe: Recipe) {
 }
 
 export function getAllRecipies() {
-  return getLocalStorage('recipes')
+  const recipies = getLocalStorage('recipes')
+  if (recipies === null) {
+    return []
+  } else {
+    return recipies
+  }
+}
+
+export function getAllRecipeIds() {
+  const recipes = getLocalStorage('recipes')
+  return recipes.map((recipe: Recipe) => {
+    return {
+      params: {
+        id: recipe.id,
+      },
+    }
+  })
+}
+
+export async function getRecipeData(id: string | null) {
+  const recipes: Recipe[] = getLocalStorage('recipes')
+  return {
+    id,
+    data: recipes.filter((recipe) => recipe.id === id),
+  }
 }
