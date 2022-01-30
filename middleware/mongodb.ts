@@ -12,7 +12,7 @@ export const connect = async () => {
 
   // Recipe Model
   const RecipeModel =
-    mongoose.models.RecipeModel || mongoose.model('RecipeMoel', RecipeSchema)
+    mongoose.models.RecipeModel || mongoose.model('RecipeModel', RecipeSchema)
 
   return { conn, RecipeModel }
 }
