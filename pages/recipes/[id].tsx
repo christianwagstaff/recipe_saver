@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { useState, useEffect } from 'react'
 import { getAllRecipeIds, getRecipeData } from '../../lib/recipes'
 import Layout from '../../components/layout'
 import RecipeInterface from '../../components/interfaces/recipe'

@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import styles from './nav.module.css'
 import Close from '../public/images/close.svg'
 import Menu from '../public/images/menu.svg'
-import useWidowWidth from '../hooks/useWindowWidth'
 import NavLink from './NavLink'
 
 export default function Nav() {
@@ -22,9 +21,9 @@ export default function Nav() {
             }}
           >
             {toggleMenu ? (
-              <Image src={Close} height={30} width={30} />
+              <Image src={Close} height={30} width={30} alt="Close Nav" />
             ) : (
-              <Image src={Menu} height={30} width={30} />
+              <Image src={Menu} height={30} width={30} alt="Open Nav" />
             )}
           </button>
         </li>

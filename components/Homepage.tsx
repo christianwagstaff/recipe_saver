@@ -1,12 +1,13 @@
 import CurrentRecipes from './homepageSections/CurrentRecipes'
 import Headline from './homepageSections/Headline'
+import Recipe from './interfaces/recipe'
 
-const HomePage = () => {
+const HomePage = ({ recipes }: { recipes: Recipe[] }) => {
   return (
     <>
       <h1>Home Page</h1>
       <Headline />
-      <CurrentRecipes />
+      <CurrentRecipes recipes={recipes} />
     </>
   )
 }

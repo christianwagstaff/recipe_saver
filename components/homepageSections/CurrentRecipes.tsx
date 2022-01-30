@@ -1,16 +1,10 @@
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { getAllRecipies } from '../../lib/recipes'
 import utilStyles from '../../styles/utils.module.css'
 import styles from './homepage.module.css'
 import Recipe from '../interfaces/recipe'
 
-const CurrentRecipes = () => {
+const CurrentRecipes = ({ recipes }: { recipes: Recipe[] }) => {
   // Get Current Recipe count from local storage
-  const [recipes, setRecipes] = useState<Recipe[]>([])
-  useEffect(() => {
-    setRecipes(getAllRecipies())
-  }, [])
   return (
     <section
       className={`${utilStyles.width100} ${utilStyles.lightBackground} ${styles.section}`}

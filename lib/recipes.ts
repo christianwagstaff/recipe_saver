@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from '../hooks/useLocalStorage'
+import { connect } from '../middleware/mongodb'
 
 interface Recipe {
   id: string
@@ -18,25 +18,29 @@ interface Recipe {
 export function submitNewRecipe(recipe: Recipe) {
   // TODO - Implement with backend for continuous storage
   // Save to local storage
-  const currentRecipies = getLocalStorage('recipes')
-  if (currentRecipies) {
-    setLocalStorage('recipes', [recipe, ...currentRecipies])
-  } else {
-    setLocalStorage('recipes', [recipe])
-  }
+  // const currentRecipies = getLocalStorage('recipes')
+  // if (currentRecipies) {
+  //   setLocalStorage('recipes', [recipe, ...currentRecipies])
+  // } else {
+  //   setLocalStorage('recipes', [recipe])
+  // }
+  return recipe
 }
 
-export function getAllRecipies() {
-  const recipies = getLocalStorage('recipes')
-  if (recipies === null) {
+export async function getAllRecipies() {
+  // const recipes = getLocalStorage('recipes')
+  const { RecipeModel } = await connect()
+  const results = await RecipeModel.find({}).catch(errorCatcher)
+  if (!results) {
     return []
   } else {
-    return recipies
+    return results
   }
 }
 
 export function getAllRecipeIds() {
-  const recipes = getLocalStorage('recipes')
+  // const recipes = getLocalStorage('recipes')
+  const recipes: Recipe[] = []
   return recipes.map((recipe: Recipe) => {
     return {
       params: {
@@ -47,9 +51,14 @@ export function getAllRecipeIds() {
 }
 
 export async function getRecipeData(id: string | null) {
-  const recipes: Recipe[] = getLocalStorage('recipes')
+  // const recipes: Recipe[] = getLocalStorage('recipes')
+  const recipes: Recipe[] = []
   return {
     id,
     data: recipes.filter((recipe) => recipe.id === id),
   }
+}
+
+function errorCatcher(error: Error) {
+  console.log(error)
 }

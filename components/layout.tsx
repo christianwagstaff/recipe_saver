@@ -1,9 +1,6 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import styles from './layout.module.css'
-import utilStyles from '../styles/utils.module.css'
 import React from 'react'
-import Nav from './nav'
 import Header from './header'
 
 const name = 'Recipe Saver'

@@ -38,7 +38,7 @@ const NewRecipeForm = () => {
 
   const saveNewRecipe = (e: FormEvent) => {
     e.preventDefault() // Don't redirect page on submit
-    let newRecipe: RecipeObject = {
+    const newRecipe: RecipeObject = {
       name,
       ingredients: ingredients.map((ing) => {
         return {
