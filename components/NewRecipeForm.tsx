@@ -2,8 +2,7 @@ import { FormEvent, useState } from 'react'
 import useFormArray from '../hooks/useFormArray'
 import { submitNewRecipe } from '../lib/recipes'
 import styles from './NewRecipeForm.module.css'
-import RecipeObject from './interfaces/recipe'
-import { v4 as uuidv4 } from 'uuid'
+import RecipeObject from '../interfaces/recipe'
 
 const newIngredient = {
   name: '',
@@ -54,7 +53,6 @@ const NewRecipeForm = () => {
       prepTime: Number(prepTime),
       cookTime: Number(cookTime),
       totalTime: Number(totalTime),
-      id: uuidv4(),
     }
     submitNewRecipe(newRecipe)
     console.log('Recipe Saved')

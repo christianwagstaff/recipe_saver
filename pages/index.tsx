@@ -1,10 +1,10 @@
 import HomePage from '../components/Homepage'
 import Layout from '../components/layout'
-import Recipe from '../components/interfaces/recipe'
+import Recipe from '../interfaces/recipe'
 import { getAllRecipies } from '../lib/recipes'
 
 export async function getServerSideProps() {
-  const allRecipes = getAllRecipies()
+  const allRecipes = await getAllRecipies()
   if (!allRecipes) {
     return {
       notFound: true,

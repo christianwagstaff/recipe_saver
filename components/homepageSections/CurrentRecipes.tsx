@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import utilStyles from '../../styles/utils.module.css'
 import styles from './homepage.module.css'
-import Recipe from '../interfaces/recipe'
+import Recipe from '../../interfaces/recipe'
 
 const CurrentRecipes = ({ recipes }: { recipes: Recipe[] }) => {
   // Get Current Recipe count from local storage
@@ -29,7 +29,7 @@ const CurrentRecipes = ({ recipes }: { recipes: Recipe[] }) => {
         [...recipes.slice(0, 5)].map((recipe, index) => {
           return (
             <div key={index}>
-              <Link href={`/recipes/${recipe.id}`}>{`${recipe.name}`}</Link>{' '}
+              <Link href={`/recipes/${recipe._id}`}>{`${recipe.name}`}</Link>{' '}
             </div>
           )
         })}

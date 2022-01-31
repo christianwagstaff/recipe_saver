@@ -1,36 +1,19 @@
-import { connect } from '../middleware/mongodb'
+import connect from '../middleware/mongodb'
+import RecipeModel from '../models/Recipe'
+import { Types } from 'mongoose'
+import RecipeInterface from '../interfaces/recipe'
 
-interface Recipe {
-  id: string
-  name: string
-  ingredients: { name: string; amount: number; unit: string }[]
-  steps: { name: string }[]
-  createdDate: Date
-  tags?: string[]
-  category?: string[]
-  notes?: { note: string; date: Date }[]
-  prepTime?: number
-  cookTime?: number
-  totalTime?: number
-  rating?: 0 | 1 | 2 | 3 | 4 | 5
-}
-
-export function submitNewRecipe(recipe: Recipe) {
-  // TODO - Implement with backend for continuous storage
-  // Save to local storage
-  // const currentRecipies = getLocalStorage('recipes')
-  // if (currentRecipies) {
-  //   setLocalStorage('recipes', [recipe, ...currentRecipies])
-  // } else {
-  //   setLocalStorage('recipes', [recipe])
-  // }
-  return recipe
+export async function submitNewRecipe(recipe: RecipeInterface) {
+  await connect()
+  const newRecipe = new RecipeModel(recipe)
+  const results = await newRecipe.save()
+  return results
 }
 
 export async function getAllRecipies() {
-  // const recipes = getLocalStorage('recipes')
-  const { RecipeModel } = await connect()
+  await connect()
   const results = await RecipeModel.find({}).catch(errorCatcher)
+  console.log(results)
   if (!results) {
     return []
   } else {
@@ -40,22 +23,22 @@ export async function getAllRecipies() {
 
 export function getAllRecipeIds() {
   // const recipes = getLocalStorage('recipes')
-  const recipes: Recipe[] = []
-  return recipes.map((recipe: Recipe) => {
+  const recipes: RecipeInterface[] = []
+  return recipes.map((recipe: RecipeInterface) => {
     return {
       params: {
-        id: recipe.id,
+        id: recipe._id,
       },
     }
   })
 }
 
-export async function getRecipeData(id: string | null) {
-  // const recipes: Recipe[] = getLocalStorage('recipes')
-  const recipes: Recipe[] = []
+export async function getRecipeData(id: Types.ObjectId) {
+  // const recipes: RecipeInterface[] = getLocalStorage('recipes')
+  const recipes: RecipeInterface[] = []
   return {
     id,
-    data: recipes.filter((recipe) => recipe.id === id),
+    data: recipes.filter((recipe) => recipe._id === id),
   }
 }
 
