@@ -13,11 +13,14 @@ export async function submitNewRecipe(recipe: RecipeInterface) {
 export async function getAllRecipies() {
   await connect()
   const results = await RecipeModel.find({}).catch(errorCatcher)
-  console.log(results)
-  if (!results) {
-    return []
+  if (results) {
+    const recipes = results.map((recipe) => {
+      // Change from Mongoose document to js object
+      return JSON.parse(JSON.stringify(recipe))
+    })
+    return recipes
   } else {
-    return results
+    return []
   }
 }
 
@@ -33,12 +36,21 @@ export function getAllRecipeIds() {
   })
 }
 
-export async function getRecipeData(id: Types.ObjectId) {
-  // const recipes: RecipeInterface[] = getLocalStorage('recipes')
-  const recipes: RecipeInterface[] = []
-  return {
-    id,
-    data: recipes.filter((recipe) => recipe._id === id),
+export async function getRecipeData(id: string) {
+  await connect()
+  const results = await RecipeModel.findById(id).catch(errorCatcher)
+  if (results) {
+    // Change from Mongoose document to js object
+    const recipe = JSON.parse(JSON.stringify(results))
+    return {
+      id,
+      data: recipe,
+    }
+  } else {
+    return {
+      id,
+      data: null,
+    }
   }
 }
 

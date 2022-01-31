@@ -1,8 +1,8 @@
 import { FormEvent, useState } from 'react'
 import useFormArray from '../hooks/useFormArray'
-import { submitNewRecipe } from '../lib/recipes'
 import styles from './NewRecipeForm.module.css'
 import RecipeObject from '../interfaces/recipe'
+import { useRouter } from 'next/router'
 
 const newIngredient = {
   name: '',
@@ -22,6 +22,7 @@ const newStep = {
 }
 
 const NewRecipeForm = () => {
+  const router = useRouter()
   const [
     ingredients,
     handleAddIngredient,
@@ -34,8 +35,9 @@ const NewRecipeForm = () => {
   const [prepTime, setPrepTime] = useState('')
   const [cookTime, setCookTime] = useState('')
   const [totalTime, setTotalTime] = useState('')
+  const [message, setMessage] = useState('')
 
-  const saveNewRecipe = (e: FormEvent) => {
+  const saveNewRecipe = async (e: FormEvent) => {
     e.preventDefault() // Don't redirect page on submit
     const newRecipe: RecipeObject = {
       name,
@@ -54,8 +56,26 @@ const NewRecipeForm = () => {
       cookTime: Number(cookTime),
       totalTime: Number(totalTime),
     }
-    submitNewRecipe(newRecipe)
-    console.log('Recipe Saved')
+    try {
+      const res = await fetch('/api/recipes', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newRecipe),
+      })
+
+      // Throw error with status code if fetch fails
+      if (!res.ok) {
+        throw new Error(`${res.status}`)
+      }
+
+      // Return to homepage
+      router.push('/')
+    } catch (error) {
+      setMessage('Failed to add recipe')
+    }
   }
 
   return (
@@ -225,6 +245,7 @@ const NewRecipeForm = () => {
         <button onClick={handleAddStep}>Add Step</button>
       </label>
       <input type="submit" value="Save Recipe" />
+      <p>{message}</p>
     </form>
   )
 }
