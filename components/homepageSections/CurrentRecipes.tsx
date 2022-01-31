@@ -28,8 +28,10 @@ const CurrentRecipes = ({ recipes }: { recipes: Recipe[] }) => {
       {recipes.length > 0 &&
         [...recipes.slice(0, 5)].map((recipe, index) => {
           return (
-            <div key={index}>
+            <div key={index} className={styles.recipe}>
               <Link href={`/recipes/${recipe._id}`}>{`${recipe.name}`}</Link>{' '}
+              <div> Ingredient Count: {recipe.ingredients.length}</div>
+              <div> Step Count: {recipe.steps.length}</div>
             </div>
           )
         })}

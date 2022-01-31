@@ -5,3 +5,10 @@
     justify-content: center;
     align-items: flex-start;
 }
+
+.recipe {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 1fr auto auto;
+    width: 75%;
+}

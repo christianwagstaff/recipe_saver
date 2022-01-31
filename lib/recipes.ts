@@ -1,6 +1,5 @@
 import connect from '../middleware/mongodb'
 import RecipeModel from '../models/Recipe'
-import { Types } from 'mongoose'
 import RecipeInterface from '../interfaces/recipe'
 
 export async function submitNewRecipe(recipe: RecipeInterface) {
