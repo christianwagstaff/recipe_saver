@@ -5,15 +5,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "restart" : "npm run build && npm run start"
   },
   "dependencies": {
     "@types/uuid": "^8.3.4",
     "mongoose": "^6.1.8",
     "next": "12.0.8",
     "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "uuid": "^8.3.2"
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
     "@types/node": "17.0.12",

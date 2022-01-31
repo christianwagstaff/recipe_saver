@@ -1,39 +1,51 @@
-import mongoose from 'mongoose'
+import mongoose, { mongo } from 'mongoose'
 
 // CONNECTING TO MONGOOSE (get database url from .env.local)
 const DATABASE_URL = process.env.DATABASE_URL
 
-// connection function
-export const connect = async () => {
-  const conn = await mongoose
-    .connect(DATABASE_URL as string)
-    .catch((err) => console.log(err))
-  console.log('Mongoose Connection Established')
+/**
+ * Global is used here to maintain a cached connection across hot reloads
+ * in development. This prevents connections growing exponentially
+ * during API Route usage.
+ */
 
-  // Recipe Model
-  const RecipeModel =
-    mongoose.models.RecipeModel || mongoose.model('RecipeModel', RecipeSchema)
-
-  return { conn, RecipeModel }
+declare global {
+  var mongoose: { conn: any; promise: any }
 }
 
-const RecipeSchema = new mongoose.Schema({
-  id: { type: String },
-  name: { type: String },
-  ingredients: [
-    {
-      unit: { type: String },
-      amount: { type: Number },
-      name: { type: String },
-    },
-  ],
-  steps: [{ name: { type: String } }],
-  createdDate: { type: Date },
-  tags: [{ type: String }],
-  category: [{ type: String }],
-  notes: [{ note: { type: String }, date: { type: Date } }],
-  prepTime: { type: Number },
-  cookTime: { type: Number },
-  totalTime: { type: Number },
-  rating: { type: String, enum: [1, 2, 3, 4, 5] },
-})
+let cached = global.mongoose
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null }
+}
+
+// connection function
+const connect = async () => {
+  if (cached.conn) {
+    return cached.conn
+  }
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    }
+
+    cached.promise = mongoose
+      .connect(DATABASE_URL as string, opts)
+      .then((db) => {
+        return db
+      })
+      .catch((err) => console.log(err))
+  }
+  cached.conn = await cached.promise
+  console.log('Mongoose Connection Established')
+
+  return cached.conn
+  // const conn = await mongoose
+  //   .connect(DATABASE_URL as string)
+  //   .catch((err) => console.log(err))
+  // console.log('Mongoose Connection Established')
+
+  // return { conn }
+}
+
+export default connect
