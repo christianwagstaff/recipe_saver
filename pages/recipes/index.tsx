@@ -1,4 +1,4 @@
-import Recipe from '../../components/interfaces/recipe'
+import Recipe from '../../interfaces/recipe'
 import Link from 'next/link'
 import Layout from '../../components/layout'
 import { getAllRecipies } from '../../lib/recipes'
@@ -16,9 +16,9 @@ function Index(props: IndexProps) {
     <Layout>
       <h1>Recipes</h1>
       <h2>Click on each Recipe to see it individually</h2>
-      {recipes.map((recipe) => (
-        <div key={recipe.id}>
-          <Link href={`/recipes/${recipe.id}`}>
+      {recipes.map((recipe, index) => (
+        <div key={index}>
+          <Link href={`/recipes/${recipe._id}`}>
             <h3>{recipe.name}</h3>
           </Link>
         </div>

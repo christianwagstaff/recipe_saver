@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { connect } from '../../../middleware/mongodb'
+import connect from '../../../middleware/mongodb'
+import RecipeModel from '../../../models/Recipe'
 import ResponseFuncs from '../../../utils/types'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -16,11 +17,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const handleCase: ResponseFuncs = {
     // Response for GET
     GET: async (req: NextApiRequest, res: NextApiResponse) => {
-      const { RecipeModel } = await connect()
+      await connect()
       res.json(await RecipeModel.findById(id).catch(errorCatcher))
     },
     PUT: async (req: NextApiRequest, res: NextApiResponse) => {
-      const { RecipeModel } = await connect()
+      await connect()
       res.json(
         await RecipeModel.findByIdAndUpdate(id, req.body, { new: true }).catch(
           errorCatcher
@@ -28,7 +29,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       )
     },
     DELETE: async (req: NextApiRequest, res: NextApiResponse) => {
-      const { RecipeModel } = await connect()
+      await connect()
       res.json(await RecipeModel.findByIdAndDelete(id).catch(errorCatcher))
     },
   }

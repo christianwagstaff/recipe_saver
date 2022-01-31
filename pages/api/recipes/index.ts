@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import ResponseFuncs from '../../../utils/types'
-import { connect } from '../../../middleware/mongodb'
+import connect from '../../../middleware/mongodb'
+import RecipeModel from '../../../models/Recipe'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // capture request method, we type it as key of ResponseFunc to reduce typing later
@@ -13,11 +14,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const handleCase: ResponseFuncs = {
     // Response for GET requests
     GET: async (req: NextApiRequest, res: NextApiResponse) => {
-      const { RecipeModel } = await connect()
+      await connect()
       res.json(await RecipeModel.find({}).catch(errorCatcher))
     },
     POST: async (req: NextApiRequest, res: NextApiResponse) => {
-      const { RecipeModel } = await connect()
+      await connect()
       res.json(await RecipeModel.create(req.body).catch(errorCatcher))
     },
   }
