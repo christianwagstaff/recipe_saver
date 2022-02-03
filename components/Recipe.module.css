@@ -1,11 +1,11 @@
 .about {
     border: 1px solid lightgray;
-    padding: 12px 24px;
     display: flex;
     flex-direction: column;
     width: 95%;
     border-radius: 4px;
     gap: 12px;
+    padding: 6px;
 }
 
 .list {
@@ -29,4 +29,10 @@
 
 .noBorder {
     border: none;
+}
+
+@media screen and (min-width: 600px) {
+    .about {
+        padding: 12px 24px;
+    }
 }

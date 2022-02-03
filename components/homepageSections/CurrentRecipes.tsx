@@ -25,16 +25,17 @@ const CurrentRecipes = ({ recipes }: { recipes: Recipe[] }) => {
           {recipes.length === 1 ? 'recipe' : 'recipies'} created!
         </p>
       )}
-      {recipes.length > 0 &&
-        [...recipes.slice(0, 5)].map((recipe, index) => {
-          return (
-            <div key={index} className={styles.recipe}>
-              <Link href={`/recipes/${recipe._id}`}>{`${recipe.name}`}</Link>{' '}
-              <div> Ingredient Count: {recipe.ingredients.length}</div>
-              <div> Step Count: {recipe.steps.length}</div>
-            </div>
-          )
-        })}
+      {recipes.length > 0 && (
+        <ul className={`${utilStyles.list} ${styles.list}`}>
+          {[...recipes.slice(0, 5)].map((recipe, index) => {
+            return (
+              <li key={index} className={styles.recipe}>
+                <Link href={`/recipes/${recipe._id}`}>{`${recipe.name}`}</Link>{' '}
+              </li>
+            )
+          })}
+        </ul>
+      )}
     </section>
   )
 }

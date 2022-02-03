@@ -6,9 +6,9 @@
     align-items: flex-start;
 }
 
-.recipe {
-    display: grid;
-    gap: 12px;
-    grid-template-columns: 1fr auto auto;
-    width: 75%;
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding-left: 1rem;
 }
