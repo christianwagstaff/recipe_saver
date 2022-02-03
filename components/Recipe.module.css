@@ -7,3 +7,26 @@
     border-radius: 4px;
     gap: 12px;
 }
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ingredients {
+    padding-left: 16px;
+}
+
+.listItem {
+    display: flex;
+    gap: 6px;
+}
+
+.listItem p {
+    margin: 0;
+}
+
+.noBorder {
+    border: none;
+}

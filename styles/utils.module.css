@@ -26,6 +26,10 @@
   border-radius: 9999px;
 }
 
+.noBorder {
+  border: none;
+}
+
 .colorInherit {
   color: inherit;
 }
