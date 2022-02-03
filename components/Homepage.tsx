@@ -5,7 +5,6 @@ import Recipe from '../interfaces/recipe'
 const HomePage = ({ recipes }: { recipes: Recipe[] }) => {
   return (
     <>
-      <h1>Home Page</h1>
       <Headline />
       <CurrentRecipes recipes={recipes} />
     </>
