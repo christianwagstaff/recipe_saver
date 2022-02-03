@@ -143,8 +143,8 @@ const NewRecipeForm = () => {
                   placeholder="Amount"
                   className={
                     ingredient.errors.amount
-                      ? `${styles.input} ${styles.error}`
-                      : styles.input
+                      ? `${styles.input} ${styles.amount} ${styles.error}`
+                      : `${styles.input} ${styles.amount}`
                   }
                   name="amount"
                   value={ingredient.amount}
@@ -176,7 +176,7 @@ const NewRecipeForm = () => {
                   <div className={styles.invalidInput}>Required</div>
                 )}
               </div>
-              <div className={styles.col}>
+              <div className={`${styles.col} ${styles.flexGrow}`}>
                 <input
                   type="text"
                   name="name"
