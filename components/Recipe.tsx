@@ -1,8 +1,20 @@
 import RecipeInterface from '../interfaces/recipe'
 import styles from './Recipe.module.css'
 import utilStyles from '../styles/utils.module.css'
+import { useState } from 'react'
 
 const RecipePage = ({ recipe }: { recipe: RecipeInterface }) => {
+  const [currentYield, setCurrentYield] = useState(1)
+  function decrementYield() {
+    // Don't allow negative yields
+    if (currentYield === 0) {
+      return
+    }
+    setCurrentYield(currentYield - 1)
+  }
+  function incrementYield() {
+    setCurrentYield(currentYield + 1)
+  }
   return (
     <>
       <h1>{recipe.name}</h1>
@@ -10,24 +22,30 @@ const RecipePage = ({ recipe }: { recipe: RecipeInterface }) => {
         {recipe.prepTime && (
           <div>
             <strong>Prep: </strong>
-            {recipe.prepTime} {recipe.prepTime > 1 ? 'mins' : 'min'}
+            {recipe.prepTime}{' '}
+            {recipe.prepTime && recipe.prepTime > 1 ? 'mins' : 'min'}
           </div>
         )}
-        {recipe.cookTime && (
-          <div>
-            <strong>Cook: </strong>
-            {recipe.cookTime} {recipe.cookTime > 1 ? 'mins' : 'min'}
-          </div>
-        )}
+        <div>
+          <strong>Cook: </strong>
+          {recipe.cookTime}{' '}
+          {recipe.cookTime && recipe.cookTime > 1 ? 'mins' : 'min'}
+        </div>
         {recipe.totalTime && (
           <div>
             <strong>Total: </strong>
-            {recipe.totalTime} {recipe.totalTime > 1 ? 'mins' : 'min'}
+            {recipe.totalTime}{' '}
+            {recipe.totalTime && recipe.totalTime > 1 ? 'mins' : 'min'}
           </div>
         )}
       </div>
       <div className={`${styles.about} ${styles.noBorder}`}>
         <h2>Ingredients</h2>
+        <div className={`${styles.yield} ${utilStyles.borderCircle}`}>
+          <button onClick={() => decrementYield()}>-</button>
+          <span>{currentYield}</span>
+          <button onClick={() => incrementYield()}>+</button>
+        </div>
         <ul className={`${styles.list} ${styles.ingredients}`}>
           {recipe.ingredients.map((ing, index) => {
             return (
@@ -37,7 +55,7 @@ const RecipePage = ({ recipe }: { recipe: RecipeInterface }) => {
               >
                 <input type="checkbox" />
                 <p>
-                  {`${ing.amount} ${ing.unit} `}
+                  {`${ing.amount * currentYield} ${ing.unit} `}
                   <strong>{ing.name}</strong>
                 </p>
               </li>
