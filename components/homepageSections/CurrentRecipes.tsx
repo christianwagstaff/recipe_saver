@@ -30,10 +30,19 @@ const CurrentRecipes = ({ recipes }: { recipes: Recipe[] }) => {
           {[...recipes.slice(0, 5)].map((recipe, index) => {
             return (
               <li key={index} className={styles.recipe}>
-                <Link href={`/recipes/${recipe._id}`}>{`${recipe.name}`}</Link>{' '}
+                <Link href={`/recipes/${recipe._id}`}>
+                  <a>{`${recipe.name}`}</a>
+                </Link>{' '}
               </li>
             )
           })}
+          <li className={styles.recipe}>
+            <Link href={`/recipes`}>
+              <a>
+                <strong>See All Recipes</strong>
+              </a>
+            </Link>{' '}
+          </li>
         </ul>
       )}
     </section>
