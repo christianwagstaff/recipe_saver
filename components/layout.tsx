@@ -6,11 +6,7 @@ import Header from './header'
 const name = 'Recipe Saver'
 export const siteTitle = 'Recipe Saver'
 
-export default function Layout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -21,6 +17,7 @@ export default function Layout({
         />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
+        <title>Recipe Saver</title>
       </Head>
       <Header name={name} />
       <main className={styles.main}>{children}</main>

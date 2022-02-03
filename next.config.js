@@ -4,6 +4,10 @@ const nextConfig = {
   env: {
     mongodburl: 'MongoDB Connected',
   },
+  i18n: {
+    locales: ['en'],
+    defaultLocale: 'en',
+  },
 }
 
 module.exports = nextConfig
