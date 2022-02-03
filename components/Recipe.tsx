@@ -6,8 +6,8 @@ import { useState } from 'react'
 const RecipePage = ({ recipe }: { recipe: RecipeInterface }) => {
   const [currentYield, setCurrentYield] = useState(1)
   function decrementYield() {
-    // Don't allow negative yields
-    if (currentYield === 0) {
+    // Don't allow zero or negative yields
+    if (currentYield === 1) {
       return
     }
     setCurrentYield(currentYield - 1)
@@ -55,7 +55,9 @@ const RecipePage = ({ recipe }: { recipe: RecipeInterface }) => {
               >
                 <input type="checkbox" />
                 <p>
-                  {`${ing.amount * currentYield} ${ing.unit} `}
+                  {`${ing.amount * currentYield} ${ing.unit}${
+                    ing.amount * currentYield > 1 ? 's' : ''
+                  } `}
                   <strong>{ing.name}</strong>
                 </p>
               </li>
