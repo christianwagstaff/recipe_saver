@@ -21,21 +21,86 @@ const newStep = {
   errors: { name: null },
 }
 
-const NewRecipeForm = () => {
+const NewRecipeForm = ({
+  recipe,
+  edit = false,
+}: {
+  recipe?: RecipeObject
+  edit?: boolean
+}) => {
   const router = useRouter()
   const [
     ingredients,
     handleAddIngredient,
     handleIngredientChange,
     handleRemoveIngredient,
-  ] = useFormArray({ itemTemplate: newIngredient })
+  ] = useFormArray({
+    itemTemplate: newIngredient,
+    init: recipe?.ingredients.map((ing) => {
+      return {
+        name: ing.name,
+        unit: ing.unit,
+        amount: ing.amount,
+        errors: { name: null, amount: null, unit: null },
+      }
+    }),
+  })
   const [steps, handleAddStep, handleStepChange, handleRemoveStep] =
-    useFormArray({ itemTemplate: newStep })
-  const [name, setName] = useState('')
-  const [prepTime, setPrepTime] = useState('')
-  const [cookTime, setCookTime] = useState('')
-  const [totalTime, setTotalTime] = useState('')
+    useFormArray({
+      itemTemplate: newStep,
+      init: recipe?.steps.map((step) => {
+        return { name: step.name, errors: { name: null } }
+      }),
+    })
+  const [name, setName] = useState(recipe?.name || '')
+  const [prepTime, setPrepTime] = useState(recipe?.prepTime || '')
+  const [cookTime, setCookTime] = useState(recipe?.cookTime || '')
+  const [totalTime, setTotalTime] = useState(recipe?.totalTime || '')
   const [message, setMessage] = useState('')
+
+  const saveEditRecipe = async (e: FormEvent) => {
+    e.preventDefault() // Don't redirect on submit
+    const newRecipe: RecipeObject = {
+      name,
+      ingredients: ingredients.map((ing) => {
+        return {
+          name: ing.name,
+          amount: ing.amount,
+          unit: ing.unit,
+        }
+      }),
+      steps: steps.map((step) => {
+        return { name: step.name }
+      }),
+      createdDate: new Date(),
+      prepTime: Number(prepTime),
+      cookTime: Number(cookTime),
+      totalTime: Number(totalTime),
+    }
+    if (recipe) {
+      // Include old id so a new one is not issued
+      newRecipe._id = recipe._id
+    }
+    try {
+      const res = await fetch(`/api/recipes/${recipe?._id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newRecipe),
+      })
+
+      // Throw error with status code if fetch fails
+      if (!res.ok) {
+        throw new Error(`${res.status}`)
+      }
+      // Return to homepage
+      router.push('/')
+    } catch (error) {
+      setMessage('Failed to edit recipe')
+    }
+  }
 
   const saveNewRecipe = async (e: FormEvent) => {
     e.preventDefault() // Don't redirect page on submit
@@ -57,7 +122,7 @@ const NewRecipeForm = () => {
       totalTime: Number(totalTime),
     }
     try {
-      const res = await fetch('/api/recipes', {
+      const res = await fetch('/api/recipes/', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -79,7 +144,11 @@ const NewRecipeForm = () => {
   }
 
   return (
-    <form onSubmit={saveNewRecipe} className={styles.form}>
+    <form
+      onSubmit={(e) => (edit ? saveEditRecipe(e) : saveNewRecipe(e))}
+      className={styles.form}
+    >
+      <p className={styles.error}>{message}</p>
       <label htmlFor="name" className={styles.input}>
         Recipe Name
         <input
@@ -244,8 +313,7 @@ const NewRecipeForm = () => {
         </ol>
         <button onClick={handleAddStep}>Add Step</button>
       </label>
-      <input type="submit" value="Save Recipe" />
-      <p>{message}</p>
+      <input type="submit" value={edit ? 'Edit Recipe' : 'Save Recipe'} />
     </form>
   )
 }

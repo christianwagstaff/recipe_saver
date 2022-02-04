@@ -56,7 +56,9 @@ const RecipePage = ({ recipe }: { recipe: RecipeInterface }) => {
                 <input type="checkbox" />
                 <p>
                   {`${ing.amount * currentYield} ${ing.unit}${
-                    ing.amount * currentYield > 1 ? 's' : ''
+                    ing.amount * currentYield > 1 && ing.unit === 'cup'
+                      ? 's'
+                      : ''
                   } `}
                   <strong>{ing.name}</strong>
                 </p>

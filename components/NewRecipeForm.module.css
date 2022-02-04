@@ -94,3 +94,9 @@
   flex-direction: column;
   gap: 6px;
 }
+
+.error {
+  color: red;
+  width: 100%;
+  text-align: center;
+}

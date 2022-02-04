@@ -1,15 +1,17 @@
 import { useState, FormEvent } from 'react'
 
-interface Errors {
-  [key: string]: any
-}
-
 interface ArrayObject {
   [key: string]: any
 }
 
-const useFormArray = ({ itemTemplate }: { itemTemplate: object }) => {
-  const [items, setItems] = useState<ArrayObject[]>([])
+const useFormArray = ({
+  itemTemplate,
+  init,
+}: {
+  itemTemplate: object
+  init?: ArrayObject[]
+}) => {
+  const [items, setItems] = useState<ArrayObject[]>(init ? [...init] : [])
 
   const handleRemoveItem = (e: FormEvent, index: number) => {
     e.preventDefault()
