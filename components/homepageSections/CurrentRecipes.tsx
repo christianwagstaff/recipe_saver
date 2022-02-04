@@ -7,7 +7,7 @@ const CurrentRecipes = ({ recipes }: { recipes: Recipe[] }) => {
   // Get Current Recipe count from local storage
   return (
     <section
-      className={`${utilStyles.width100} ${utilStyles.lightBackground} ${styles.section}`}
+      className={`${utilStyles.lightBackground} ${styles.section}`}
     >
       <h2>Recipe Count</h2>
       {recipes.length === 0 && (
@@ -36,7 +36,7 @@ const CurrentRecipes = ({ recipes }: { recipes: Recipe[] }) => {
               </li>
             )
           })}
-          <li className={styles.recipe}>
+          <li className={`${styles.recipe} ${styles.all}`}>
             <Link href={`/recipes`}>
               <a>
                 <strong>See All Recipes</strong>

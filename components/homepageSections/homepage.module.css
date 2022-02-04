@@ -1,19 +1,22 @@
 .section {
-    padding: 2rem .5rem;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+  padding: 2rem 0.5rem;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .list {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .recipe {
-    padding: .5rem 0;
+  padding: 0.5rem 1rem;
+}
+
+.recipe.all {
+  padding-left: 0;
 }
