@@ -106,3 +106,10 @@
 .error.active {
   display: block;
 }
+
+.delete {
+  padding: .25rem;
+  background-color: rgb(255, 142, 142);
+  border-radius: 2px;
+  border: 1px solid black;
+}

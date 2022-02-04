@@ -58,6 +58,24 @@ const NewRecipeForm = ({
   const [totalTime, setTotalTime] = useState(recipe?.totalTime || '')
   const [message, setMessage] = useState('')
 
+  const deleteRecipe = async (e: FormEvent) => {
+    e.preventDefault()
+    try {
+      const res = await fetch(`/api/recipes/${recipe?._id}`, {
+        method: 'DELETE',
+      })
+
+      // Throw error with status code if fetch fails
+      if (!res.ok) {
+        throw new Error(`${res.status}`)
+      }
+      // Return to previous page
+      router.back()
+    } catch (error) {
+      setMessage('Failed to delete recipe')
+    }
+  }
+
   const saveEditRecipe = async (e: FormEvent) => {
     e.preventDefault() // Don't redirect on submit
     const newRecipe: RecipeObject = {
@@ -316,6 +334,11 @@ const NewRecipeForm = ({
         <button onClick={handleAddStep}>Add Step</button>
       </label>
       <input type="submit" value={edit ? 'Edit Recipe' : 'Save Recipe'} />
+      {edit && (
+        <button onClick={deleteRecipe} className={styles.delete}>
+          Delete Recipe
+        </button>
+      )}
     </form>
   )
 }
