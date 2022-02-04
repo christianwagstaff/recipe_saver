@@ -70,7 +70,7 @@ const NewRecipeForm = ({
         throw new Error(`${res.status}`)
       }
       // Return to previous page
-      router.back()
+      router.push('/recipes')
     } catch (error) {
       setMessage('Failed to delete recipe')
     }
@@ -166,7 +166,7 @@ const NewRecipeForm = ({
       onSubmit={(e) => (edit ? saveEditRecipe(e) : saveNewRecipe(e))}
       className={styles.form}
     >
-      <p className={`${styles.error} ${message ? styles.active : ''}`}>
+      <p className={`${styles.errorMessage} ${message ? styles.active : ''}`}>
         {message}
       </p>
       <label htmlFor="name" className={styles.input}>
@@ -237,6 +237,7 @@ const NewRecipeForm = ({
                   }
                   name="amount"
                   value={ingredient.amount}
+                  min={0}
                   onChange={(e) => handleIngredientChange(e, index)}
                 />
                 {ingredient.errors.amount && (

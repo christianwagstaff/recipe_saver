@@ -24,9 +24,11 @@
 
 .input {
   width: 100%;
+  min-height: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  min-height: 30px;
 }
 
 .input.error {
@@ -96,19 +98,19 @@
   gap: 6px;
 }
 
-.error {
+.errorMessage {
   color: red;
   width: 100%;
   text-align: center;
   display: none;
 }
 
-.error.active {
+.errorMessage.active {
   display: block;
 }
 
 .delete {
-  padding: .25rem;
+  padding: 0.25rem;
   background-color: rgb(255, 142, 142);
   border-radius: 2px;
   border: 1px solid black;
