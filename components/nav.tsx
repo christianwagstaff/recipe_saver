@@ -29,7 +29,8 @@ export default function Nav() {
         </li>
         <div className={styles.dropdown}>
           <NavLink url="/" name="Home" router={router} />
-          <NavLink url="/recipes/new" name="Create Recipie" router={router} />
+          <NavLink url="/recipes/new" name="Create Recipe" router={router} />
+          <NavLink url="/recipes" name="View Recipies" router={router} />
         </div>
       </ul>
     </nav>
