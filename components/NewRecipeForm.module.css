@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 12px;
   width: 100%;
+  margin-top: 0;
 }
 
 .form > * {
@@ -99,4 +100,9 @@
   color: red;
   width: 100%;
   text-align: center;
+  display: none;
+}
+
+.error.active {
+  display: block;
 }

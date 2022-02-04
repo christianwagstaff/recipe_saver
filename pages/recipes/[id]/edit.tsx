@@ -16,7 +16,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 export default function NewRecipe({ recipe }: { recipe: RecipeInterface }) {
   return (
     <Layout>
-      <h1>Create a New Recipe</h1>
+      <h1>Edit Recipe</h1>
       <NewRecipeForm edit={true} recipe={recipe} />
     </Layout>
   )

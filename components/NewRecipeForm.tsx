@@ -95,8 +95,8 @@ const NewRecipeForm = ({
       if (!res.ok) {
         throw new Error(`${res.status}`)
       }
-      // Return to homepage
-      router.push('/')
+      // Return to previous page
+      router.back()
     } catch (error) {
       setMessage('Failed to edit recipe')
     }
@@ -148,7 +148,9 @@ const NewRecipeForm = ({
       onSubmit={(e) => (edit ? saveEditRecipe(e) : saveNewRecipe(e))}
       className={styles.form}
     >
-      <p className={styles.error}>{message}</p>
+      <p className={`${styles.error} ${message ? styles.active : ''}`}>
+        {message}
+      </p>
       <label htmlFor="name" className={styles.input}>
         Recipe Name
         <input
