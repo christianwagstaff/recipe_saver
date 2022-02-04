@@ -1,58 +1,64 @@
 .about {
-    border: 1px solid lightgray;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    border-radius: 4px;
-    gap: 12px;
-    padding: 6px;
+  border: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 4px;
+  gap: 12px;
+  padding: 6px;
 }
 
 .list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
 }
 
 .ingredients {
-    padding-left: 16px;
+  padding-left: 16px;
 }
 
 .listItem {
-    display: flex;
-    gap: 6px;
+  display: flex;
+  gap: 6px;
 }
 
 .listItem p {
-    margin: 0;
+  margin: 0;
 }
 
 .yield {
-    display: flex;
-    gap: 12px;
-    background-color: lightgray;
-    min-width: 7rem;
-    padding: 6px 12px;
-    align-items: center;
-    justify-content: space-between;
-    align-self: center;
+  display: flex;
+  gap: 12px;
+  background-color: lightgray;
+  min-width: 7rem;
+  padding: 6px 12px;
+  align-items: center;
+  justify-content: space-between;
+  align-self: center;
 }
 
 .yield button {
-    border: none;
-    background-color: inherit;
+  border: none;
+  background-color: inherit;
 }
 
 .noBorder {
-    border: none;
+  border: none;
+}
+
+.top {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 @media screen and (min-width: 600px) {
-    .about {
-        padding: 12px 24px;
-    }
-    .about.noBorder {
-        padding-top: 0;
-    }
+  .about {
+    padding: 12px 24px;
+  }
+  .about.noBorder {
+    padding-top: 0;
+  }
 }

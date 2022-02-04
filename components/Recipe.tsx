@@ -2,8 +2,11 @@ import RecipeInterface from '../interfaces/recipe'
 import styles from './Recipe.module.css'
 import utilStyles from '../styles/utils.module.css'
 import { useState } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const RecipePage = ({ recipe }: { recipe: RecipeInterface }) => {
+  const router = useRouter()
   const [currentYield, setCurrentYield] = useState(1)
   function decrementYield() {
     // Don't allow zero or negative yields
@@ -17,7 +20,12 @@ const RecipePage = ({ recipe }: { recipe: RecipeInterface }) => {
   }
   return (
     <>
-      <h1>{recipe.name}</h1>
+      <div className={styles.top}>
+        <Link href={`${router.asPath}/edit`}>
+          <a className={styles.edit}>Edit</a>
+        </Link>
+      </div>
+      <h1 className={styles.name}>{recipe.name}</h1>
       <div className={styles.about}>
         {recipe.prepTime && (
           <div>
