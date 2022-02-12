@@ -1,4 +1,30 @@
+@font-face {
+  font-family: 'Amatic';
+  src: url('../public/fonts/Amatic_SC/AmaticSC-Regular.ttf');
+}
+
 .recipeCard {
+  width: 100%;
+  border: 1px solid black;
+  padding: 1rem;
+  font-family: 'Amatic', cursive;
+}
+
+.recipeCard_top,.recipeCard_bottom {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  align-items: center;
+}
+
+.recipeTitle {
+  font-family: 'Apple Chancery', cursive;
+  font-size: 3rem;
+  margin: 0;
+}
+
+.about {
+    display: grid;
+    grid-template-columns: repeat(4,auto);
     width: 100%;
-    border: 1px solid black;
 }

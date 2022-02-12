@@ -110,7 +110,6 @@ const NewRecipeForm = ({
         },
         body: JSON.stringify(newRecipe),
       })
-
       // Throw error with status code if fetch fails
       if (!res.ok) {
         throw new Error(`${res.status}`)
@@ -349,7 +348,7 @@ const NewRecipeForm = ({
         </ol>
         <button onClick={handleAddStep}>Add Step</button>
       </label>
-      <input type="submit" value={edit ? 'Edit Recipe' : 'Save Recipe'} />
+      <input type="submit" value={'Save Recipe'} />
       {edit && (
         <button onClick={deleteRecipe} className={styles.delete}>
           Delete Recipe
