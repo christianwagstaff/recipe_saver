@@ -11,6 +11,7 @@ const RecipeSchema = new mongoose.Schema<Recipe>({
     },
   ],
   steps: [{ name: { type: String } }],
+  serves: { type: Number },
   createdDate: { type: Date },
   tags: [{ type: String }],
   category: [{ type: String }],

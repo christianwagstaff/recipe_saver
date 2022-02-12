@@ -5,6 +5,7 @@ export default interface Recipe {
   name: string
   ingredients: { name: string; amount: number; unit: string }[]
   steps: { name: string }[]
+  serves: number
   createdDate: Date
   tags?: string[]
   category?: string[]

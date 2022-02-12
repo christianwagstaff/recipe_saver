@@ -56,6 +56,7 @@ const NewRecipeForm = ({
   const [prepTime, setPrepTime] = useState(recipe?.prepTime || '')
   const [cookTime, setCookTime] = useState(recipe?.cookTime || '')
   const [totalTime, setTotalTime] = useState(recipe?.totalTime || '')
+  const [serves, setServes] = useState(recipe?.serves || '')
   const [message, setMessage] = useState('')
 
   const deleteRecipe = async (e: FormEvent) => {
@@ -90,6 +91,7 @@ const NewRecipeForm = ({
       steps: steps.map((step) => {
         return { name: step.name }
       }),
+      serves: Number(serves),
       createdDate: new Date(),
       prepTime: Number(prepTime),
       cookTime: Number(cookTime),
@@ -134,6 +136,7 @@ const NewRecipeForm = ({
       steps: steps.map((step) => {
         return { name: step.name }
       }),
+      serves: Number(serves),
       createdDate: new Date(),
       prepTime: Number(prepTime),
       cookTime: Number(cookTime),
@@ -196,7 +199,7 @@ const NewRecipeForm = ({
             min={0}
           />
         </label>
-        <label htmlFor="cookTIme" className={styles.input}>
+        <label htmlFor="cookTime" className={styles.input}>
           Cook Time
           <input
             id="cookTime"
@@ -218,6 +221,18 @@ const NewRecipeForm = ({
             min={0}
             value={totalTime}
             onChange={(e) => setTotalTime(e.target.value)}
+          />
+        </label>
+        <label htmlFor="serves" className={styles.input}>
+          Serves
+          <input
+            id="serves"
+            name="serves"
+            type="number"
+            placeholder="1"
+            min={0}
+            value={serves}
+            onChange={(e) => setServes(e.target.value)}
           />
         </label>
       </div>
