@@ -1,6 +1,5 @@
 import RecipeInterface from '../interfaces/recipe'
 import styles from './RecipeCard.module.css'
-import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -24,10 +23,7 @@ const RecipeCard = ({ recipe }: { recipe: RecipeInterface }) => {
             <ul className={`${styles.list} ${styles.ingredients}`}>
               {recipe.ingredients.map((ing, index) => {
                 return (
-                  <li
-                    key={index}
-                    className={`${utilStyles.list} ${styles.listItem}`}
-                  >
+                  <li key={index} className={styles.ingredientItem}>
                     <p>
                       {`${ing.amount} ${ing.unit}${
                         ing.amount > 1 && ing.unit === 'cup' ? 's' : ''

@@ -56,7 +56,7 @@ const NewRecipeForm = ({
   const [prepTime, setPrepTime] = useState(recipe?.prepTime || '')
   const [cookTime, setCookTime] = useState(recipe?.cookTime || '')
   const [totalTime, setTotalTime] = useState(recipe?.totalTime || '')
-  const [serves, setServes] = useState(recipe?.serves || '')
+  const [servings, setservings] = useState(recipe?.serves || '')
   const [message, setMessage] = useState('')
 
   const deleteRecipe = async (e: FormEvent) => {
@@ -91,7 +91,7 @@ const NewRecipeForm = ({
       steps: steps.map((step) => {
         return { name: step.name }
       }),
-      serves: Number(serves),
+      serves: Number(servings),
       createdDate: new Date(),
       prepTime: Number(prepTime),
       cookTime: Number(cookTime),
@@ -135,7 +135,7 @@ const NewRecipeForm = ({
       steps: steps.map((step) => {
         return { name: step.name }
       }),
-      serves: Number(serves),
+      serves: Number(servings),
       createdDate: new Date(),
       prepTime: Number(prepTime),
       cookTime: Number(cookTime),
@@ -222,16 +222,16 @@ const NewRecipeForm = ({
             onChange={(e) => setTotalTime(e.target.value)}
           />
         </label>
-        <label htmlFor="serves" className={styles.input}>
+        <label htmlFor="servings" className={styles.input}>
           Serves
           <input
-            id="serves"
-            name="serves"
+            id="servings"
+            name="servings"
             type="number"
             placeholder="1"
             min={0}
-            value={serves}
-            onChange={(e) => setServes(e.target.value)}
+            value={servings}
+            onChange={(e) => setservings(e.target.value)}
           />
         </label>
       </div>
@@ -275,6 +275,7 @@ const NewRecipeForm = ({
                   <option value="g">gram</option>
                   <option value="tsp">tsp</option>
                   <option value="tbsp">tbsp</option>
+                  <option value="unit">unit</option>
                 </select>
                 {ingredient.errors.unit && (
                   <div className={styles.invalidInput}>Required</div>

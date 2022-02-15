@@ -1,4 +1,4 @@
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 
 // CONNECTING TO MONGOOSE (get database url from .env.local)
 const DATABASE_URL = process.env.DATABASE_URL
