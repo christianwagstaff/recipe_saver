@@ -38,31 +38,36 @@ const RecipeCard = ({ recipe }: { recipe: RecipeInterface }) => {
           <div className={styles.recipeCard_right}>
             <div className={styles.about}>
               <div>
-                <strong>Serves: </strong>
-                {recipe.serves}
+                Serves: <div> {recipe.serves}</div>
               </div>
               <div>
-                <strong>Prep: </strong>
-                {recipe.prepTime}{' '}
-                {recipe.prepTime && recipe.prepTime > 1 ? 'mins' : 'min'}
+                Prep:{' '}
+                <div>
+                  {recipe.prepTime}{' '}
+                  {recipe.prepTime && recipe.prepTime > 1 ? 'mins' : 'min'}
+                </div>
               </div>
               <div>
-                <strong>Cook: </strong>
-                {recipe.cookTime}{' '}
-                {recipe.cookTime && recipe.cookTime > 1 ? 'mins' : 'min'}
+                Cook:{' '}
+                <div>
+                  {recipe.cookTime}{' '}
+                  {recipe.cookTime && recipe.cookTime > 1 ? 'mins' : 'min'}
+                </div>
               </div>
               <div>
-                <strong>Total: </strong>
-                {recipe.totalTime}{' '}
-                {recipe.totalTime && recipe.totalTime > 1 ? 'mins' : 'min'}
+                Total:{' '}
+                <div>
+                  {recipe.totalTime}{' '}
+                  {recipe.totalTime && recipe.totalTime > 1 ? 'mins' : 'min'}
+                </div>
               </div>
             </div>
-            <div className={styles.stepList}>
+            <div className={styles.steps}>
               <h2>Instuctions</h2>
-              <ol className={styles.list}>
+              <ol className={styles.stepList}>
                 {recipe.steps.map((step, index) => {
                   return (
-                    <li key={index}>
+                    <li key={index} className={styles.stepListItem}>
                       <span>{step.name}</span>
                     </li>
                   )

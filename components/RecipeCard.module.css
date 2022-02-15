@@ -4,7 +4,9 @@
 }
 
 .recipeCard {
+  align-self: flex-start;
   width: 100%;
+  min-width: 500px;
   border: 1px solid black;
   padding: 1rem;
   font-family: 'Amatic', cursive;
@@ -16,7 +18,7 @@
 .recipeCard_bottom {
   width: 100%;
   display: grid;
-  grid-template-columns: 40% 60%;
+  grid-template-columns: auto 70%;
   gap: 0.5rem;
   align-items: center;
 }
@@ -30,8 +32,23 @@
 
 .about {
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(4, 1fr);
   width: 100%;
+  font-size: 1rem;
+  gap: .25rem;
+}
+
+.about > div {
+    margin: 0;
+    width: 100%;
+    display: flex;
+}
+
+.about div div {
+    border-bottom: 1px solid black;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
 }
 
 .ingredientList {
@@ -54,4 +71,13 @@
 
 .ingredientItem p {
   margin: 0;
+}
+
+.stepList {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.stepListItem {
+  padding: 0.5rem 0 0 0;
 }
